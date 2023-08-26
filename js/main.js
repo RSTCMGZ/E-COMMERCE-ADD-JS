@@ -12,4 +12,8 @@ async function getData() {
 getData()
 
 const products = localStorage.getItem("products")
-
+const cartItems = document.querySelector(".header-cart-count")
+cartItems.innerHTML = localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart")).length
+    : "0"
+// cartları localstorage ye attık ve cartın içinde ürün var ise arttır yok ise 0 göster dedik.ve sayfa yenilenince kaç adet ürün sepette ise onu gösterir.

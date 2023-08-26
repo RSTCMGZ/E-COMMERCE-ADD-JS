@@ -1,12 +1,44 @@
-import { product1 } from "./glide.js"
-import { product2 } from "./glide.js"
+import { product1, product2 } from "./glide.js"
 
+
+let products = []
+let cart = []
+
+cart = localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart"))
+  : []
+
+//! karta tıkladıgında favorilere eklemek
+function addToCart() {
+  const cartItems = document.querySelector(".header-cart-count")//! favorilere her tıkladığında artması için değişken oluşturduk
+  const buttons = [...document.getElementsByClassName("add-to-cart")]
+  buttons.forEach((button) => {
+    const inCart = cart.find((item) => item.id == Number(button.dataset.id))
+    if (inCart) {
+      button.setAttribute("disabled", "disabled")
+    } else {
+      button.addEventListener("click", function (e) {
+        e.preventDefault()
+        const id = e.target.dataset.id
+        const findProduct = products.find(product => product.id == Number(id))
+
+        cart.push({ ...findProduct, quantity: 1 })
+        localStorage.setItem("cart", JSON.stringify(cart))
+        button.setAttribute("disabled", "disabled") //? butona bastıgında disabled olacak
+        cartItems.innerHTML = cart.length
+      })
+    }
+
+  })
+}
+
+//! Datadan ürün ismi fiyat vs çektik.
 function productFunc1() {
-    const products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : []
-    const productsContainer = document.getElementById("product-list")
-    let results = ""
-    products.forEach((item) => {
-        results += `
+  products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : []
+  const productsContainer = document.getElementById("product-list")
+  let results = ""
+  products.forEach((item) => {
+    results += `
         <li class="product-item glide__slide">
         <div class="product-image">
           <a href="#">
@@ -48,7 +80,7 @@ function productFunc1() {
           </div>
           <span class="product-discount">-${item.discount}%</span>
           <div class="product-links">
-            <button>
+            <button class="add-to-cart" data-id=${item.id}>
               <i class="bi bi-basket-fill"></i>
             </button>
             <button>
@@ -65,24 +97,21 @@ function productFunc1() {
       </li>
     
     `
-
-
-
-
-        productsContainer.innerHTML = results
-    })
-    product1()
+    productsContainer.innerHTML = results
+    addToCart()
+  })
+  product1()
 }
 
 
 
 function productFunc2() {
-    const products2 = localStorage.getItem("products") ?
-        JSON.parse(localStorage.getItem("products")) : []
-    const productsContainer2 = document.getElementById("product-list2")
-    let results1 = ""
-    products2.forEach((item) => {
-        results1 += `
+  const products2 = localStorage.getItem("products") ?
+    JSON.parse(localStorage.getItem("products")) : []
+  const productsContainer2 = document.getElementById("product-list2")
+  let results1 = ""
+  products2.forEach((item) => {
+    results1 += `
         <li class="product-item glide__slide">
         <div class="product-image">
           <a href="#">
@@ -139,15 +168,15 @@ function productFunc2() {
         </div>
       </li>
         `
-        productsContainer2.innerHTML = results1
-    })
-    product2()
+    productsContainer2.innerHTML = results1
+  })
+  product2()
 }
 
 
 export default productFunc()
 
 function productFunc() {
-    productFunc1()
-    productFunc2()
+  productFunc1()
+  productFunc2()
 }

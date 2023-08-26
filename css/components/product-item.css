@@ -107,9 +107,16 @@
   color: #fff;
   font-size: 14px;
 }
+.product-item .product-links button:disabled {
+  opacity: 0.4;
+  cursor: no-drop;
+}
 .product-item .product-links button:hover,
 .product-item .product-links a:hover {
   opacity: 0.7;
+}
+.product-item .product-links i {
+  pointer-events: none;
 }
 .product-wrapper {
   position: relative;

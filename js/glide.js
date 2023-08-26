@@ -1,9 +1,9 @@
 export function product1() {
     const config = {
-        type: "carousel",
         perView: 4,
         gap: 20,
-        autoplay: 3000,
+        // autoplay: 3000,
+        bound: true,
         breakpoints: {
             992: {
                 perView: 3,
@@ -29,7 +29,8 @@ export function product2() {
         type: "carousel",
         perView: 4,
         gap: 20,
-        autoplay: 3000,
+        // autoplay: 3000,
+        bound: true,
         breakpoints: {
             992: {
                 perView: 3,
