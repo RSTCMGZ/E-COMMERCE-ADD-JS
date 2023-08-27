@@ -102,7 +102,29 @@ function productFunc1() {
 }
 
 
+//! karta tıkladıgında favorilere eklemek
+function addToCart2() {
+  const cartItems = document.querySelector(".header-cart-count")//! favorilere her tıkladığında artması için değişken oluşturduk
+  const buttons = [...document.getElementsByClassName("add-to-cart-1")]
+  buttons.forEach((button) => {
+    const inCart = cart.find((item) => item.id == Number(button.dataset.id))
+    if (inCart) {
+      button.setAttribute("disabled", "disabled")
+    } else {
+      button.addEventListener("click", function (e) {
+        e.preventDefault()
+        const id = e.target.dataset.id
+        const findProduct = products.find(product => product.id == Number(id))
 
+        cart.push({ ...findProduct, quantity: 1 })
+        localStorage.setItem("cart", JSON.stringify(cart))
+        button.setAttribute("disabled", "disabled") //? butona bastıgında disabled olacak
+        cartItems.innerHTML = cart.length
+      })
+    }
+
+  })
+}
 function productFunc2() {
   const products2 = localStorage.getItem("products") ?
     JSON.parse(localStorage.getItem("products")) : []
@@ -150,7 +172,8 @@ function productFunc2() {
           </div>
           <span class="product-discount">-${item.discount}%</span>
           <div class="product-links">
-            <button>
+          <button class="add-to-cart-1" data-id=${item.id}>
+
               <i class="bi bi-basket-fill"></i>
             </button>
             <button>
@@ -167,6 +190,8 @@ function productFunc2() {
       </li>
         `
     productsContainer2 ? productsContainer2.innerHTML = results1 : ""
+    addToCart2()
+
   })
   product2()
 }
