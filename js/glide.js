@@ -1,3 +1,6 @@
+const productsContainer = document.getElementById("product-list")
+const productsContainer2 = document.getElementById("product-list2")
+
 export function product1() {
     const config = {
         perView: 4,
@@ -17,7 +20,7 @@ export function product1() {
         },
     }
 
-    new Glide(".product_carousel", config).mount()
+    productsContainer && new Glide(".product_carousel", config).mount()
 
 }
 
@@ -44,5 +47,5 @@ export function product2() {
         },
     }
 
-    new Glide(".product_carousel2", config2).mount()
+    productsContainer2 && new Glide(".product_carousel2", config2).mount()
 }

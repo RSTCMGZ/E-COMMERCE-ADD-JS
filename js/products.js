@@ -1,12 +1,10 @@
 import { product1, product2 } from "./glide.js"
 
-
-let products = []
-let cart = []
-
-cart = localStorage.getItem("cart")
+let products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : []
+let cart = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart"))
   : []
+
 
 //! karta tıkladıgında favorilere eklemek
 function addToCart() {
@@ -34,7 +32,7 @@ function addToCart() {
 
 //! Datadan ürün ismi fiyat vs çektik.
 function productFunc1() {
-  products = localStorage.getItem("products") ? JSON.parse(localStorage.getItem("products")) : []
+
   const productsContainer = document.getElementById("product-list")
   let results = ""
   products.forEach((item) => {
@@ -97,7 +95,7 @@ function productFunc1() {
       </li>
     
     `
-    productsContainer.innerHTML = results
+    productsContainer ? productsContainer.innerHTML = results : "";
     addToCart()
   })
   product1()
@@ -168,13 +166,13 @@ function productFunc2() {
         </div>
       </li>
         `
-    productsContainer2.innerHTML = results1
+    productsContainer2 ? productsContainer2.innerHTML = results1 : ""
   })
   product2()
 }
 
 
-export default productFunc()
+export default productFunc
 
 function productFunc() {
   productFunc1()
